@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для тебя 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&family=Marck+Script&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(135deg, #ffe0ec 0%, #ffd1e3 30%, #ffc4dc 60%, #ffb8d4 100%);
+            background-attachment: fixed;
+            color: #6b2c44;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Падающие слова */
+        .falling-words-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .falling-word {
+            position: absolute;
+            top: -50px;
+            font-family: 'Marck Script', cursive;
+            font-size: 2rem;
+            color: #d63384;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 182, 193, 0.8);
+            opacity: 0;
+            white-space: nowrap;
+            animation: fall linear forwards;
+            font-weight: 600;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) translateX(50px) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
+        /* Основной контент */
+        .content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            animation: fadeInDown 1.5s ease;
+        }
+
+        h1 {
+            font-family: 'Marck Script', cursive;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            color: #c2185b;
+            text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #a13a5e;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Карточки с фото и словами */
+        .card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 20px 60px rgba(214, 51, 132, 0.25),
+                        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.2s; }
+        .card:nth-child(2) { animation-delay: 0.4s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+        .card:nth-child(4) { animation-delay: 0.8s; }
+        .card:nth-child(5) { animation-delay: 1.0s; }
+        .card:nth-child(6) { animation-delay: 1.2s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(214, 51, 132, 0.4),
+                        0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+        }
+
+        .card img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 22px;
+            box-shadow: 0 15px 40px rgba(214, 51, 132, 0.3);
+            transition: transform 0.5s ease, filter 0.5s ease;
+            display: block;
+        }
+
+        .card img:hover {
+            transform: scale(1.03) rotate(1deg);
+            filter: brightness(1.05) saturate(1.1);
+        }
+
+        .card-text {
+            font-family: 'Marck Script', cursive;
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            color: #b1275e;
+            text-align: center;
+            line-height: 1.4;
+            padding: 0 10px;
+            text-shadow: 1px 1px 8px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Секция пожелания внизу */
+        .final-wish {
+            text-align: center;
+            padding: 60px 30px;
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(214, 51, 132, 0.25),
+                        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+        }
+
+        .final-wish p {
+            font-family: 'Marck Script', cursive;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: #c2185b;
+            line-height: 1.5;
+            text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.9);
+        }
+
+        .hearts {
+            font-size: 2rem;
+            margin-top: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Плавающие сердечки на фоне */
+        .bg-heart {
+            position: fixed;
+            font-size: 1.5rem;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.2; }
+            90% { opacity: 0.2; }
+            to {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px;
+                border-radius: 24px;
+                margin: 25px 0;
+            }
+            .falling-word {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Контейнер падающих слов -->
+    <div class="falling-words-container" id="fallingWords"></div>
+
+    <!-- Основной контент -->
+    <div class="content">
+        <header>
+            <h1>Для тебя 💗</h1>
+            <p class="subtitle">Маленький мир, созданный с теплом и любовью</p>
+        </header>
+
+        <div class="card">
+            <img src="https://i.ibb.co/nMnd4PFH/IMG-20261012-020859-152.jpg" alt="Фото 1">
+            <p class="card-text">Ты невероятно красивая ✨</p>
+        </div>
+
+        <div class="card">
+            <img src="https://i.ibb.co/6K7fFr1/IMG-20261012-020903-183.jpg" alt="Фото 2">
+            <p class="card-text">С тобой так комфортно и тепло 🌸</p>
+        </div>
+
+        <div class="card">
+            <img src="https://i.ibb.co/fdQNf71X/IMG-20261012-020904-381.jpg" alt="Фото 3">
+            <p class="card-text">Ты самая добрая на свете 💖</p>
+        </div>
+
+        <div class="card">
+            <img src="https://i.ibb.co/zW1LbWF4/IMG-20261012-020906-109.jpg" alt="Фото 4">
+            <p class="card-text">Твоя улыбка согревает сердце 🌷</p>
+        </div>
+
+        <div class="card">
+            <img src="https://i.ibb.co/DD1yvmyq/IMG-20261012-020906-955.jpg" alt="Фото 5">
+            <p class="card-text">Ты — моё вдохновение 💫</p>
+        </div>
+
+        <div class="card">
+            <img src="https://i.ibb.co/20SyDNJm/IMG-20261012-020907-998.jpg" alt="Фото 6">
+            <p class="card-text">Ты — настоящее чудо 🦋</p>
+        </div>
+
+        <div class="final-wish">
+            <p>Спасибо, что ты есть.<br>Ты делаешь этот мир добрее и красивее 🌹</p>
+            <div class="hearts">💕 💗 💕</div>
+        </div>
+    </div>
+
+    <script>
+        // Слова, которые будут падать
+        const words = [
+            'ты очень красивая',
+            'ты комфортная',
+            'ты добрая',
+            'ты нежная',
+            'ты тёплая',
+            'ты милая',
+            'ты чудесная',
+            'ты искренняя',
+            'ты заботливая',
+            'ты особенная',
+            'ты любимая',
+            'ты счастье',
+            'ты солнышко',
+            'ты вдохновение',
+            'ты самая лучшая'
+        ];
+
+        const container = document.getElementById('fallingWords');
+
+        // Создаём падающие слова по 3 за раз
+        function createFallingWord() {
+            const word = document.createElement('div');
+            word.className = 'falling-word';
+            word.textContent = words[Math.floor(Math.random() * words.length)];
+
+            // Случайная позиция по горизонтали
+            const leftPos = Math.random() * 85;
+            word.style.left = leftPos + '%';
+
+            // Случайная скорость и задержка
+            const duration = 6 + Math.random() * 5;
+            word.style.animationDuration = duration + 's';
+
+            // Случайный размер
+            const size = 1.3 + Math.random() * 1.2;
+            word.style.fontSize = size + 'rem';
+
+            container.appendChild(word);
+
+            // Удаляем слово после завершения анимации
+            setTimeout(() => {
+                word.remove();
+            }, duration * 1000);
+        }
+
+        // Запускаем по 3 слова каждые 2 секунды
+        function spawnWords() {
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => createFallingWord(), i * 600);
+            }
+        }
+
+        // Первый запуск и интервал
+        spawnWords();
+        setInterval(spawnWords, 3000);
+
+        // Плавающие сердечки на фоне
+        const hearts = ['💗', '💕', '🌸', '✨', '🌷', '💖', '🦋', '💫'];
+
+        function createBgHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'bg-heart';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (1 + Math.random() * 2) + 'rem';
+            const duration = 15 + Math.random() * 15;
+            heart.style.animationDuration = duration + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+
+        setInterval(createBgHeart, 1500);
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createBgHeart, i * 800);
+        }
+
+        // Плавное появление карточек при скролле
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+
+</body>
+  </html>
